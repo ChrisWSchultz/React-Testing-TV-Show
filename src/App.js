@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getShow } from "./api/getShow"
 import Dropdown from "react-dropdown";
 import parse from "html-react-parser";
 
 import { formatSeasons } from "./utils/formatSeasons";
 
 import Episodes from "./components/Episodes";
+
 import "./styles.css";
 
 export default function App() {
@@ -15,17 +16,12 @@ export default function App() {
   const episodes = seasons[selectedSeason] || [];
 
   useEffect(() => {
-    const fetchShow = () => {
-      axios
-        .get(
-          "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
-        )
-        .then(res => {
-          setShow(res.data);
-          setSeasons(formatSeasons(res.data._embedded.episodes));
-        });
-    };
-    fetchShow();
+        getShow()
+            .then((response) => {
+            setShow(response.data)
+            setSeasons(formatSeasons(response.data._embedded.episodes));
+            })
+            .catch();
   }, []);
 
   const handleSelect = e => {
