@@ -425,5 +425,3 @@ const data = [
         "_links": {"self": {"href": "http://api.tvmaze.com/episodes/1752754"}}
     }
 ];
-
-

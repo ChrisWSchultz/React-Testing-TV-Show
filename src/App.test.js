@@ -16,13 +16,17 @@ test('App Renders',async () => {
 });
 
 test('dropdown functions', async () => {
+    let dropdown;
+
     mockGetShow.mockResolvedValueOnce(mockData);
     const { getByText } = render(<App />);
 
     await waitFor (() => {
-        const dropdown = getByText(/select a season/i);
-        // userEvent.click(dropdown);
+        dropdown = getByText(/select a season/i);
     });
+
+    userEvent.click(dropdown);
+    const season_one = getByText(/season 1/i)
 
 });
 
