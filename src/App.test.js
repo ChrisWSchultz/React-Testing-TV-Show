@@ -2,6 +2,7 @@ import React from 'react';
 import App from './App';
 import { render, waitFor } from "@testing-library/react";
 import { getShow as mockGetShow } from './api/getShow';
+import userEvent from "@testing-library/user-event";
 
 jest.mock('./api/getShow');
 
@@ -12,6 +13,17 @@ test('App Renders',async () => {
     await waitFor(() => {
         const title = getByRole('heading', {name: /stranger things/i});
     });
+});
+
+test('dropdown functions', async () => {
+    mockGetShow.mockResolvedValueOnce(mockData);
+    const { getByText } = render(<App />);
+
+    await waitFor (() => {
+        const dropdown = getByText(/select a season/i);
+        // userEvent.click(dropdown);
+    });
+
 });
 
 const mockData = {
